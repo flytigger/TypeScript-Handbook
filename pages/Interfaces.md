@@ -1,8 +1,13 @@
-# Introduction
+Interfaces 接口
+====
+
+Introduction
+----
 
 One of TypeScript's core principles is that type-checking focuses on the `shape` that values have. This is sometimes called "duck typing" or "structural subtyping". In TypeScript, interfaces fill the role of naming these types, and are a powerful way of defining contracts within your code as well as contracts with code outside of your project. 
 
-# Our First Interface 
+Our First Interface
+----
 
 The easiest way to see how interfaces work is to start with a simple example:
 
@@ -36,7 +41,9 @@ The interface `LabelledValue` is a name we can now use to describe the requireme
 
 It's worth pointing out that the type-checker does not require that these properties come in any sort of order, only that the properties the interface requires are present and have the required type.
 
-# Optional Properties
+Optional Properties
+----
+
 Not all properties of an interface may be required. Some exist under certain conditions or may not be there at all. These optional properties are popular when creating patterns like "option bags" where the user passes an object to a function that only has a couple properties filled in.
 
 Here's as example of this pattern:
@@ -85,7 +92,8 @@ function createSquare(config: SquareConfig): {color: string; area: number} {
 var mySquare = createSquare({color: "black"});  
 ```
 
-# Function Types
+Function Types
+----
 
 Interfaces are capable of describing the wide range of shapes that JavaScript objects can take. In addition to describing an object with properties, interfaces are also capable of describing function types.
 
@@ -129,7 +137,8 @@ mySearch = function(src: string, sub: string) {
 
 Function parameters are checked one at a time, with the type in each corresponding parameter position checked against each other. Here, also, the return type of our function expression is implied by the values it returns (here _false_ and _true_). Had the function expression returned numbers or strings, the type-checker would have warned us that return type doesn't match the return type described in the SearchFunc interface.
 
-# Array Types
+Array Types
+----
 
 Similarly to how we can use interfaces to describe function types, we can also describe array types. Array types have an `index` type that describes the types allowed to index the object, along with the corresponding return type for accessing the index.
 
@@ -153,7 +162,8 @@ interface Dictionary {
 } 
 ```
 
-# Class Types
+Class Types
+----
 
 !# Implementing an interface
 
@@ -221,7 +231,8 @@ var cs: ClockStatic = Clock;
 var newClock = new cs(7, 30);
 ```
 
-# Extending Interfaces
+Extending Interfaces
+----
 
 Like classes, interfaces can extend each other. This handles the task of copying the members of one interface into another, allowing you more freedom in how you separate your interfaces into reusable components.
 
@@ -260,7 +271,8 @@ square.sideLength = 10;
 square.penWidth = 5.0;
 ```
 
-# Hybrid Types
+Hybrid Types
+----
 
 As we mentioned earlier, interfaces can describe the rich types present in real world JavaScript. Because of JavaScript's dynamic and flexible nature, you may occasionally encounter an object that works as a combination of some of the types described above. 
 

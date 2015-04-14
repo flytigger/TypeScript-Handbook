@@ -1,8 +1,13 @@
-# Introduction
+Classes 类
+====
+
+Introduction
+----
 
 Traditional JavaScript focuses on functions and prototype-based inheritance as the basic means of building up reusable components, but this may feel a bit awkward to programmers more comfortable with an object-oriented approach, where classes inherit functionality and objects are built from these classes. Starting with ECMAScript 6, the next version of JavaScript, JavaScript programmers will be able to build their applications using this object-oriented class-based approach. In TypeScript, we allow developers to use these techniques now, and compile them down to JavaScript that works across all major browsers and platforms, without having to wait for the next version of JavaScript.
 
-# Classes
+Classes
+----
 
 Let's take a look at a simple class-based example:
 
@@ -26,7 +31,8 @@ You'll notice that in the class when we refer to one of the members of the class
 
 In the last line we construct an instance of the Greeter class using `new`. This calls into the constructor we defined earlier, creating a new object with the Greeter shape, and running the constructor to initialize it.
 
-# Inheritance
+Inheritance
+----
 
 In TypeScript, we can use common object-oriented patterns. Of course, one of the most fundamental patterns in class-based programming is being able to extend existing classes to create new ones using inheritance.
 
@@ -68,9 +74,11 @@ This example covers quite a bit of the inheritance features in TypeScript that a
 
 The example also shows off being able to override methods in the base class with methods that are specialized for the subclass. Here both `Snake` and `Horse` create a `move` method that overrides the `move` from `Animal`, giving it functionality specific to each class.
 
-# Private/Public modifiers
+Private/Public modifiers
+----
 
-## Public by default
+###Public by default
+
 You may have noticed in the above examples we haven't had to use the word `public` to make any of the members of the class visible. Languages like C# require that each member be explicitly labelled `public` to be visible. In TypeScript, each member is public by default. 
 
 You may still mark members a private, so you control what is publicly visible outside of your class. We could have written the `Animal` class from the previous section like so:
@@ -85,7 +93,7 @@ class Animal {
 }
 ```
 
-## Understanding private
+###Understanding private
 
 TypeScript is a structural type system. When we compare two different types, regardless of where they came from, if the types of each member are compatible, then we say the types themselves are compatible. 
 
@@ -118,7 +126,7 @@ animal = employee; // Error: Animal and Employee are not compatible
 
 In this example, we have an `Animal` and a `Rhino`, with `Rhino` being a subclass of `Animal`. We also have a new class `Employee` that looks identical to `Animal` in terms of shape. We create some instances of these classes and then try to assign them to each other to see what will happen. Because `Animal` and `Rhino` share the private side of their shape from the same declaration of 'private name: string' in `Animal`, they are compatible. However, this is not the case for `Employee`. When we try to assign from an `Employee` to `Animal` we get an error that these types are not compatible. Even though `Employee` also has a private member called `name`, it is not the same one as the one created in `Animal`. 
 
-## Parameter properties
+###Parameter properties
 
 The keywords `public` and `private` also give you a shorthand for creating and initializing members of your class, by creating parameter properties. The properties let you can create and initialize a member in one step. Here's a further revision of the previous example. Notice how we drop `theName` altogether and just use the shortened 'private name: string' parameter on the constructor to create and initialize the `name` member.
 
@@ -133,7 +141,8 @@ class Animal {
 
 Using `private` in this way creates and initializes a private member, and similarly for `public`. 
 
-# Accessors
+Accessors
+----
 
 TypeScript supports getters/setters as a way of intercepting accesses to a member of an object. This gives you a way of having finer-grained control over how a member is accessed on each object.
 
@@ -186,7 +195,8 @@ To prove to ourselves that our accessor is now checking the passcode, we can mod
 
 Note: Accessors require you to set the compiler to output ECMAScript 5.
 
-# Static Properties
+Static Properties
+----
 
 Up to this point, we've only talked about the _instance_ members of the class, those that show up on the object when its instantiated. We can also create _static_ members of a class, those that are visible on the class itself rather than on the instances. In this example, we use `static` on the origin, as it's a general value for all grids. Each instance accesses this value through prepending the name of the class. Similarly to prepending 'this.' in front of instance accesses, here we prepend 'Grid.' in front of static accesses.
 
@@ -208,9 +218,10 @@ alert(grid1.calculateDistanceFromOrigin({x: 10, y: 10}));
 alert(grid2.calculateDistanceFromOrigin({x: 10, y: 10}));
 ```
 
-# Advanced Techniques
+Advanced Techniques
+----
 
-## Constructor functions
+###Constructor functions
 
 When you declare a class in TypeScript, you are actually creating multiple declarations at the same time. The first is the type of the _instance_ of the class.
 
@@ -282,7 +293,7 @@ In this example, `greeter1` works similarly to before. We instantiate the `Greet
 
 Next, we then use the class directly. Here we create a new variable called `greeterMaker`. This variable will hold the class itself, or said another way its constructor function. Here we use 'typeof Greeter', that is "give me the type of the Greeter class itself" rather than the instance type. Or, more precisely, "give me the type of the symbol called Greeter", which is the type of the constructor function. This type will contain all of the static members of Greeter along with the constructor that creates instances of the Greeter class. We show this by using `new` on `greeterMaker`, creating new instances of `Greeter` and invoking them as before.
 
-## Using a class as an interface
+###Using a class as an interface
 
 As we said in the previous section, a class declaration creates two things: a type representing instances of the class and a constructor function. Because classes create types, you can use them in the same places  you would be able to use interfaces.
 
