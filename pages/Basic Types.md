@@ -13,7 +13,7 @@ Boolean 布尔值
 
 The most basic datatype is the simple true/false value, which JavaScript and TypeScript (as well as other languages) call a `boolean` value.
 
-最基本的数据类型是真/假值，它们在 JavaScript 和 TypeScript （以及其他语言中）称作 `boolean` （布尔值）。
+最基本的数据类型是真/假值，它们在 JavaScript 和 TypeScript （以及其他语言）中称作 `boolean` （布尔值）。
 
 ```ts
 var isDone: boolean = false;
@@ -42,7 +42,7 @@ var name: string = "bob";
 name = 'smith';
 ```
 
-Array
+Array 数组
 ----
 
 TypeScript, like JavaScript, allows you to work with arrays of values.  Array types can be written in one of two ways.  In the first, you use the type of the elements followed by `[]` to denote an array of that element type:
@@ -55,9 +55,9 @@ TypeScript, like JavaScript, allows you to work with arrays of values.  Array ty
 var list:number[] = [1, 2, 3];
 ```
 
-The second way uses a generic array type, Array<elemType>:
+The second way uses a generic array type, Array\<elemType>:
 
-第二种方式是，Array<元素类型>：
+第二种方式是，Array\<元素类型>：
 
 ```ts
 var list:Array<number> = [1, 2, 3];
@@ -95,7 +95,7 @@ var c: Color = Color.Green;
 
 A handy feature of enums is that you can also go from a numeric value to the name of that value in the enum.  For example, if we had the value 2 but weren't sure which that mapped to in the Color enum above, we could look up the corresponding name:
 
-枚举数据中一个方便的特点是可以从数值访问到该值得名称。例如，我们有一个值 2，但不确定它对应上面 Color 中的哪一个颜色，就可以来查找一下：
+枚举数据中一个方便的特点是可以从数值访问到该值的名称。例如，我们有一个值 2，但不确定它对应上面 Color 中的哪一个颜色，就可以查找它对应的名字：
 
 ```ts
 enum Color {Red = 1, Green, Blue};
@@ -109,7 +109,7 @@ Any 任意
 
 We may need to describe the type of variables that we may not know when we are writing the application.  These values may come from dynamic content, eg from the user or 3rd party library.  In these cases, we want to opt-out of type-checking and let the values pass through compile-time checks.  To do so, we label these with the `any` type:
 
-当我们编写应用时，很可能需要描述不知道类型的变量。这些值可能来自动态内容，如用户或第三方库。这时，我们想要取消类型检测，并让这些值通过编译时的检查。为了实现这种想法，我们将这些值标记为 `any` （任意）类型：
+当我们编写应用时，很可能需要描述不知道类型的变量。这些值可能来自动态内容，如用户或第三方库。这时，我们想要取消类型检查，并让这些值通过编译时的检查。为了实现这种想法，我们将这些值标记为 `any` （任意）类型：
 
 ```ts
 var notSure: any = 4;
