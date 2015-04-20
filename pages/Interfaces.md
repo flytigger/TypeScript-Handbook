@@ -165,14 +165,14 @@ mySearch = function(src: string, sub: string) {
 
 Function parameters are checked one at a time, with the type in each corresponding parameter position checked against each other. Here, also, the return type of our function expression is implied by the values it returns (here _false_ and _true_). Had the function expression returned numbers or strings, the type-checker would have warned us that return type doesn't match the return type described in the SearchFunc interface.
 
-函数的参数会按照它在接口中对应的定义被挨个检查，也会根据函数的返回值（这里是 _true_ 或 _false_ ）来检查其类型。如果函数返回了数字或字符串，我们会得到函数返回值类型与 SearchFunc 接口中描述的不一致的警告。
+函数的参数会按照它在接口中对应的定义被挨个检查，也会根据函数的返回值（这里是 _true_ 或 _false_ ）来检查其类型{需要重新翻译}。如果函数返回了数字或字符串，我们会得到函数返回值类型与 SearchFunc 接口中描述的不一致的警告。
 
 Array Types 数组类型
 ----
 
 Similarly to how we can use interfaces to describe function types, we can also describe array types. Array types have an `index` type that describes the types allowed to index the object, along with the corresponding return type for accessing the index.
 
-除了用来描述函数类型，我们也可以用接口来描述数组类型。数组类型包含一个用来描述成员索引的 `index` 类型，也是访问成员索引的返回值。
+除了用来描述函数，我们也可以用接口来描述数组。数组类型包含一个用来描述成员索引的 `index` 类型，也是访问成员索引的返回值。
 
 ```ts
 interface StringArray {
@@ -205,7 +205,7 @@ Class Types 类类型
 
 One of the most common uses of interfaces in languages like C# and Java, that of explicitly enforcing that a class meets a particular contract, is also possible in TypeScript.
 
-在一些语言，如 C# 和 Java 中，使用接口来声明一个类的结构，是非常常见的用法。你也可以在 TypeScript 里这么做。
+在一些语言，如 C# 和 Java 中，使用接口来声明一个类的结构，是非常常见的用法，你也可以在 TypeScript 里这么做。
 
 ```ts
 interface ClockInterface {
@@ -220,7 +220,7 @@ class Clock implements ClockInterface  {
 
 You can also describe methods in an interface that are implemented in the class, as we do with `setTime` in the below example:
 
-你也可以在接口中描述需要在类中实现的方法，就像下面例子中的 `setTime` ：
+你也可以在接口中描述类中需要实现的方法，就像下面例子中的 `setTime` ：
 
 ```ts
 interface ClockInterface {
@@ -280,7 +280,7 @@ var cs: ClockStatic = Clock;
 var newClock = new cs(7, 30);
 ```
 
-Extending Interfaces 扩展接口
+Extending Interfaces 接口的扩展
 ----
 
 Like classes, interfaces can extend each other. This handles the task of copying the members of one interface into another, allowing you more freedom in how you separate your interfaces into reusable components.
