@@ -191,7 +191,7 @@ While index signatures are a powerful way to describe the array and `dictionary`
 
 使用索引签名，不仅可以将数组和字典区分开，也强制所有属性必须符合它们的返回值。在下面这个例子中，这个属性不符合通常的索引类型，就会得到一个错误信息：
 
-```
+```ts
 interface Dictionary {
   [index: string]: string;
   length: number;    // error, the type of `length` is not a subtype of the indexer
@@ -205,7 +205,9 @@ Class Types 类类型
 
 One of the most common uses of interfaces in languages like C# and Java, that of explicitly enforcing that a class meets a particular contract, is also possible in TypeScript.
 
-```
+在一些语言，如 C# 和 Java 中，使用接口来声明一个类的结构，是非常常见的用法。你也可以在 TypeScript 里这么做。
+
+```ts
 interface ClockInterface {
     currentTime: Date;
 }
@@ -218,7 +220,9 @@ class Clock implements ClockInterface  {
 
 You can also describe methods in an interface that are implemented in the class, as we do with `setTime` in the below example:
 
-```
+你也可以在接口中描述需要在类中实现的方法，就像下面例子中的 `setTime` ：
+
+```ts
 interface ClockInterface {
     currentTime: Date;
     setTime(d: Date);
@@ -235,10 +239,15 @@ class Clock implements ClockInterface  {
 
 Interfaces describe the public side of the class, rather than both the public and private side. This prohibits you from using them to check that a class also has particular types for the private side of the class instance.
 
-!# Difference between static/instance side of class
+接口可以用来描述类的公有部分，但不能用来描述私有部分。因此，你无法使用接口来检查类中是否包含实例的私有部分。{需再次翻译}
+
+###Difference between static/instance side of class 类的声明与实现之间的不同
+
 When working with classes and interfaces, it helps to keep in mind that a class has _two_ types: the type of the static side and the type of the instance side. You may notice that if you create an interface with a construct signature and try to create a class that implements this interface you get an error:
 
-```
+在处理类和接口时，需要记住类有 _两_ 种：类的声明和实现。你会注意到，当你创建一个包含构造函数的接口，并创建一个类来实现它时，会得到一个错误：
+
+```ts
 interface ClockInterface {
     new (hour: number, minute: number);
 }
@@ -251,9 +260,13 @@ class Clock implements ClockInterface  {
 
 This is because when a class implements an interface, only the instance side of the class is checked. Since the constructor sits in the static side, it is not included in this check.
 
+这是因为当类实现一个接口时，只有类的实例会被检查。因为构造函数属于声明部分，所以它不会被检查。
+
 Instead, you would need to work with the `static` side of the class directly. In this example, we work with the class directly:
 
-```
+你需要直接处理类的 `静态` 部分。在这个例子中，我们来直接处理这个类：
+
+```ts
 interface ClockStatic {
     new (hour: number, minute: number);
 }
@@ -267,12 +280,14 @@ var cs: ClockStatic = Clock;
 var newClock = new cs(7, 30);
 ```
 
-Extending Interfaces
+Extending Interfaces 扩展接口
 ----
 
 Like classes, interfaces can extend each other. This handles the task of copying the members of one interface into another, allowing you more freedom in how you separate your interfaces into reusable components.
 
-```
+像类一样，接口也可以相互扩展。它承担了将一个接口的成员复制到另一个接口的任务，使你更容易地将接口分割成可重用的组件。
+
+```ts
 interface Shape {
     color: string;
 }
@@ -288,7 +303,9 @@ square.sideLength = 10;
 
 An interface can extend multiple interfaces, creating a combination of all of the interfaces.
 
-```
+一个接口可以扩展多个接口，创建一个所有接口的组合。
+
+```ts
 interface Shape {
     color: string;
 }
@@ -307,14 +324,18 @@ square.sideLength = 10;
 square.penWidth = 5.0;
 ```
 
-Hybrid Types
+Hybrid Types 混合类型
 ----
 
 As we mentioned earlier, interfaces can describe the rich types present in real world JavaScript. Because of JavaScript's dynamic and flexible nature, you may occasionally encounter an object that works as a combination of some of the types described above. 
 
+像我们前面提到的，接口可以描述 JavaScript 中复杂的数据对象。由于 JavaScript 动态和可扩展的特点，你也会偶尔遇到一个包含了许多上面描述的类型的复合型对象。
+
 One such example is an object that acts as both a function and an object, with additional properties:
 
-```
+一个类似的例子，一个包含了额外属性，表现得即像函数，又像对象的对象。
+
+```ts
 interface Counter {
     (start: number): string;
     interval: number;
@@ -328,3 +349,5 @@ c.interval = 5.0;
 ```
 
 When interacting with 3rd-party JavaScript, you may need to use patterns like the above to fully-describe the shape of the type.
+
+当使用第三方 JavaScript 库的时候，你可能需要用上面的格式来全面描述类型的特征。
