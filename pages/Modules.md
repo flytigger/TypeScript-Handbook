@@ -299,7 +299,11 @@ strings.forEach(s => {
 
 Depending on the module target specified during compilation, the compiler will generate appropriate code for either node.js (commonjs) or require.js (AMD) module-loading systems. For more information on what the _define_ and _require_ calls in the generated code do, consult the documentation for each module loader.
 
+编译器会根据编译时指定的目标模块来生成 node.js (commonjs) 或 require.js (AMD) 对应的代码。想要了解更多关于 _define_ 和 _require_ 在生成的代码中如何工作的信息，可以参考对应模块加载器的文档。
+
 This simple example shows how the names used during importing and exporting get translated into the module loading code.
+
+下面的例子展示了模块名在导入和导出时是如何被翻译的。
 
 ####SimpleModule.ts
 
@@ -328,9 +332,15 @@ Export =
 
 In the previous example, when we consumed each validator, each module only exported one value. In cases like this, it's cumbersome to work with these symbols through their qualified name when a single identifier would do just as well.
 
+在上面的例子中，我们编写的每个校验器模块只导出了一个值。在这种情况下，处理这么多模块名是很麻烦的，只要一个识别符就可以了。
+
 The export = syntax specifies a single object that is exported from the module. This can be a class, interface, module, function, or enum. When imported, the exported symbol is consumed directly and is not qualified by any name.
 
+`export =` 语法指定了从模块中导出一个对象。这个对象可以是类、接口、模块、函数或枚举值。当引入该值时，导出的符号可以直接使用，不需要通过任何名称来指定。
+
 Below, we've simplified the Validator implementations to only export a single object from each module using the export = syntax. This simplifies the consumption code – instead of referring to 'zip.ZipCodeValidator', we can simply refer to 'zipValidator'.
+
+下面，我们使用 `export =` 语法从每个模块中导出一个对象，来简化校验器的实现。这简化了使用代码——使用 'zipValidator' 而不是 'zip.ZipCodeValidator'。
 
 ####Validation.ts
 
@@ -392,6 +402,8 @@ Alias 别名
 
 Another way that you can simplify working with either kind of module is to use _import q = x.y.z_ to create shorter names for commonly-used objects. Not to be confused with the _import x = require('name')_ syntax used to load external modules, this syntax simply creates an alias for the specified symbol. You can use these sorts of imports (commonly referred to as aliases) for any kind of identifier, including objects created from external module imports.
 
+另一种简化使用多种模块的方式，是使用 _import q = x.y.z_ 来创建经常使用的对象的短名称。不要与使用 _import x = require('name')_ 导入外部模块的语法弄混，这个语法只是为指定的符号创建一个别名。你可以为任何类型的识别符使用这种导入方式（通常称作别名），包括通过导入外部模块创建的对象。
+
 ####Basic Aliasing 基本的别名
 
 ```ts
@@ -408,12 +420,18 @@ var sq = new polygons.Square(); // Same as 'new Shapes.Polygons.Square()'
 
 Notice that we don't use the _require_ keyword; instead we assign directly from the qualified name of the symbol we're importing. This is similar to using _var_, but also works on the type and namespace meanings of the imported symbol. Importantly, for values, _import_ is a distinct reference from the original symbol, so changes to an aliased _var_ will not be reflected in the original variable.
 
+注意，我们没有使用 _require_ 关键词；相反地，我们直接直接将制定的名称赋值给导入的符号。这与使用 _var_ 类似，不过对导入符号的类型和命名空间也有效。重要的一点，对于值来说， _import_ 是与原始的符号不同的引用，所以修改别名变量不会影响到原始变量。
+
 Optional Module Loading and Other Advanced Loading Scenarios 可选的模块加载及高级模块加载方案
 ----
 
 In some cases, you may want to only load a module under some conditions. In TypeScript, we can use the pattern shown below to implement this and other advanced loading scenarios to directly invoke the module loaders without losing type safety.
 
+有时候，你只需要在特定的情况下加载一个模块。在 TypeScript 中，我们可以用下面的方式来实现这个功能，还有其他在不丢失类型安全的前提下调用模块加载器的高级加载方式。
+
 The compiler detects whether each module is used in the emitted JavaScript. For modules that are only used as part of the type system, no require calls are emitted. This culling of unused references is a good performance optimization, and also allows for optional loading of those modules.
+
+编译器会检查启动的 JavaScript 中每一个模块是否被使用。对于值作为类型系统一部分的模块来说，导入调用不会被执行。这种消除未使用的引用是一种很好的性能优化方式，也使模块拥有了动态加载的特性。
 
 The core idea of the pattern is that the _import id = require('...')_ statement gives us access to the types exposed by the external module. The module loader is invoked (through require) dynamically, as shown in the if blocks below. This leverages the reference-culling optimization so that the module is only loaded when needed. For this pattern to work, it's important that the symbol defined via import is only used in type positions (i.e. never in a position that would be emitted into the JavaScript).
 
