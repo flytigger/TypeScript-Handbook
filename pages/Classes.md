@@ -35,7 +35,7 @@ The syntax should look very familiar if you've used C# or Java before. We declar
 
 You'll notice that in the class when we refer to one of the members of the class we prepend 'this.'. This denotes that it's a member access.
 
-你会发现我们通过在类的成员前加上 `this` 来访问它，这代表访问一个成员。
+你会发现我们通过在类的成员前加上 `this` 来访问它，这代表了成员访问。
 
 In the last line we construct an instance of the Greeter class using `new`. This calls into the constructor we defined earlier, creating a new object with the Greeter shape, and running the constructor to initialize it.
 
@@ -99,11 +99,11 @@ Private/Public modifiers 私有/共有操作符
 
 You may have noticed in the above examples we haven't had to use the word `public` to make any of the members of the class visible. Languages like C# require that each member be explicitly labelled `public` to be visible. In TypeScript, each member is public by default. 
 
-你可能已经注意到，在上面的例子中我们没有使用 `public` 来让类的成员可见。其他语言（如 C#）必须使用 `public` 来标记成员可见。在 TypeScript 中，成员默认就是共有的。
+你可能已经注意到，在上面的例子中我们没有使用 `public` 来让类的成员可见。其他语言（如 C#）必须使用 `public` 来标记成员可见。在 TypeScript 中，成员默认就是公有的。
 
 You may still mark members a private, so you control what is publicly visible outside of your class. We could have written the `Animal` class from the previous section like so:
 
-你可以将成员标记为私有，来控制其在类外不可见。我们可以将上一节的 `Animal` 类这么写：
+你可以将成员标记为私有，让它在类外不可见。我们可以将上一节的 `Animal` 类这么写：
 
 ```ts
 class Animal {
@@ -123,7 +123,7 @@ TypeScript 是一个结构类型系统。当我们比较两个不同的类型时
 
 When comparing types that have `private` members, we treat these differently. For two types to be considered compatible, if one of them has a private member, then the other must have a private member that originated in the same declaration. 
 
-我们用另一种方式来比较包含私有成员的类型时。对于两个需要比较的类型，如果其中一个包含私有成员，那另一个必须包含具有相同声明的私有成员。
+我们用另一种方式来比较包含私有成员的类型。对于两个兼容的类型，如果其中一个包含私有成员，那另一个必须包含具有相同声明的私有成员。
 
 Let's look at an example to better see how this plays out in practice:
 
@@ -160,7 +160,7 @@ In this example, we have an `Animal` and a `Rhino`, with `Rhino` being a subclas
 
 The keywords `public` and `private` also give you a shorthand for creating and initializing members of your class, by creating parameter properties. The properties let you can create and initialize a member in one step. Here's a further revision of the previous example. Notice how we drop `theName` altogether and just use the shortened 'private name: string' parameter on the constructor to create and initialize the `name` member.
 
-关键词 `public` 和 `private` 让你可以使用参数属性快速创建和初始化类成员。下面是之前实例的更先进版本。可以看到我们丢弃了全部 `theName` 声明，直接在构造函数中使用 'private name: string' 作为参赛来创建和声明 `name` 成员。
+关键词 `public` 和 `private` 让你可以使用参数属性快速创建和初始化类成员。下面是之前实例的更先进版本。可以看到我们丢弃了全部 `theName` 声明，直接在构造函数中使用 'private name: string' 作为参数来创建和声明 `name` 成员。
 
 ```ts
 class Animal {
@@ -173,7 +173,7 @@ class Animal {
 
 Using `private` in this way creates and initializes a private member, and similarly for `public`. 
 
-使用 `provate` 通过这种方式创建和初始化私有成员，`public` 也是如此。
+使用 `provate` 通过这种方式创建和初始化私有成员，`public` 也可以这样。
 
 Accessors 存取器
 ----
@@ -200,11 +200,11 @@ if (employee.fullName) {
 
 While allowing people to randomly set fullName directly is pretty handy, this might get us in trouble if we people can change names on a whim. 
 
-允许用户偶尔更新一下全名是非常方便的，不过，用户可以随便乱改名字，会给我们带来麻烦。
+允许用户偶尔更新一下全名是非常方便的。不过，允许用户可以随便乱改名字，也是很麻烦的。
 
 In this version, we check to make sure the user has a secret passcode available before we allow them to modify the employee. We do this by replacing the direct access to fullName with a `set` that will check the passcode. We add a corresponding `get` to allow the previous example to continue to work seamlessly.
 
-在这个例子中，我们用户是否有密码，来验证是否允许他更新 employee。我们使用 `set` 替换对 fullName 的直接访问，来实现密码检查的功能。我们添加了相应的 `get` 方法，是其与之前的例子表现相同。
+在这个例子中，我们检查用户是否有正确的密码，来验证是否允许他更新 employee。我们使用 `set` 替换对 fullName 的直接访问，来实现密码检查的功能。并添加了相应的 `get` 方法，使其与之前的例子表现相同。
 
 ```ts
 var passcode = "secret passcode";
@@ -235,7 +235,7 @@ if (employee.fullName) {
 
 To prove to ourselves that our accessor is now checking the passcode, we can modify the passcode and see that when it doesn't match we instead get the alert box warning us we don't have access to update the employee.
 
-为了验证存取器正常工作，我们可以修改验证码来查看结果，如果不匹配，我们会得到警告我们没有修改权限的弹窗。
+为了验证存取器能否正常工作，我们可以修改验证码来查看结果，如果不匹配，就会得到我们没有修改权限的警告。
 
 Note: Accessors require you to set the compiler to output ECMAScript 5.
 
@@ -359,7 +359,7 @@ Next, we then use the class directly. Here we create a new variable called `gree
 
 As we said in the previous section, a class declaration creates two things: a type representing instances of the class and a constructor function. Because classes create types, you can use them in the same places you would be able to use interfaces.
 
-像我们上一节说的，类声明创建了两个东西：一个代表了类实例的类型，和一个构造函数。因为雷创建了类型，所以你可以在任何使用接口的地方使用类。
+像我们上一节说的，类声明创建了两个东西：一个代表了类实例的类型，和一个构造函数。因为类创建了类型，所以你可以在任何使用接口的地方使用类。
 
 ```ts
 class Point {
