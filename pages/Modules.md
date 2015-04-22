@@ -435,9 +435,13 @@ The compiler detects whether each module is used in the emitted JavaScript. For 
 
 The core idea of the pattern is that the _import id = require('...')_ statement gives us access to the types exposed by the external module. The module loader is invoked (through require) dynamically, as shown in the if blocks below. This leverages the reference-culling optimization so that the module is only loaded when needed. For this pattern to work, it's important that the symbol defined via import is only used in type positions (i.e. never in a position that would be emitted into the JavaScript).
 
+这种功能的核心是 _import id = require('...')_ 声明让我们可以访问到外部模块暴露的类型。模块加载器被动态调用（通过 require），像上面代码中的 if 块那样。这平衡了引用消除优化，使模块只在需要时被加载。{暂时无法翻译}
+
 To maintain type safety, we can use the _typeof_ keyword. The _typeof_ keyword, when used in a type position, produces the type of a value, in this case the type of the external module.
 
-####Dynamic Module Loading in node.js
+为了保证类型安全，我们可以用 _typeof_ 关键词。 _typeof_ 可以获取值的类型，在这个例子中，就是外部模块的类型。
+
+####Dynamic Module Loading in node.js node.js 中的动态模块加载
 
 ```ts
 declare var require;
@@ -448,7 +452,7 @@ if (needZipValidation) {
 }
 ```
 
-####Sample: Dynamic Module Loading in require.js
+####Sample: Dynamic Module Loading in require.js require.js 中的动态模块加载
 
 ```ts
 declare var require;
@@ -464,6 +468,8 @@ Working with Other JavaScript Libraries 使用其他 JavaScript 库
 ----
 
 To describe the shape of libraries not written in TypeScript, we need to declare the API that the library exposes. Because most JavaScript libraries expose only a few top-level objects, modules are a good way to represent them. We call declarations that don't define an implementation "ambient". Typically these are defined in .d.ts files. If you're familiar with C/C++, you can think of these as .h files or 'extern'. Let's look at a few examples with both internal and external examples.
+
+为了描述非 TypeScript 写成的库的结构，我们需要声明库中暴露的 API。大多数 JavaScript 库只暴露出少量的顶级对象，所以用模块来描述它们是比较好的方式。{暂时无法翻译}
 
 ###Ambient Internal Modules 包装内部模块
 
@@ -530,6 +536,8 @@ Pitfalls of Modules 模块的陷阱
 ----
 
 In this section we'll describe various common pitfalls in using internal and external modules, and how to avoid them.
+
+在这一节，我们将讨论使用内部和外部模块时常见的陷阱，以及如何避免这些陷阱。
 
 ###<reference> to an external module <reference> 引用外部模块
 

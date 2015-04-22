@@ -5,7 +5,7 @@ The TypeScript Handbook is a comprehensive guide to the TypeScript language
 
 这是一份完整的 TypeScript 语言参考手册。
 
-目录
+Table of Contents 目录
 ----
 
 1. [Basic Types 基本类型](./pages/Basic%20Types.md)
