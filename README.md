@@ -11,6 +11,6 @@ Table of Contents 目录
 1. [Basic Types 基本类型](./pages/Basic%20Types.md)
 2. [Interfaces 接口](./pages/Interfaces.md)
 3. [Classes 类](./pages/Classes.md)
-4. Modules
-5. Functions
+4. [Modules 模块](./pages/Modules.md)
+5. [Functions 函数](./pages/Functions.md)
 6. Generics
