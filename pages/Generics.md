@@ -208,6 +208,8 @@ var myIdentity: GenericIdentityFn = identity;
 
 In a similar example, we may want to move the generic parameter to be a parameter of the whole interface. This lets us see what type(s) we're generic over (eg Dictionary<string> rather than just Dictionary). This makes the type parameter visible to all the other members of the interface. 
 
+在类似的例子中，我们想让泛型参数作为整个接口的参数。这让我们可以看到整个泛型的类型（），让泛型参数可被所有其他接口成员访问到。
+
 ```ts
 interface GenericIdentityFn<T> {
     (arg: T): T;
@@ -221,6 +223,8 @@ var myIdentity: GenericIdentityFn<number> = identity;
 ```
 
 Notice that our example has changed to be something slightly different. Instead of describing a generic function, we now have a non-generic function signature that is a part of a generic type. When we use GenericIdentityFn, we now will also need to specify the corresponding type argument (here: number), effectively locking in what the underlying call signature will use. Understanding when to put the type parameter directly on the call signature and when to put it on the interface itself will be helpful in describing what aspects of a type are generic.
+
+注意我们的例子变得有一点点不同。
 
 In addition to generic interfaces, we can also create generic classes. Note that it is not possible to create generic enums and modules.
 
