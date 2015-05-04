@@ -6,7 +6,7 @@ Introduction 介绍
 
 This post outlines the various ways to organize your code using modules in TypeScript. We'll be covering internal and external modules and we'll discuss when each is appropriate and how to use them. We'll also go over some advanced topics of how to use external modules, and address some common pitfalls when using modules in TypeScript.
 
-这篇文章列出了在 TYpeScript 中使用模块来管理代码的各种方式。这些内容会覆盖内部和外部的模块，并讨论如何恰当地以及正确地使用它们。我们也会了解一些如何使用外部模块，以及在 TypeScript 中使用模块的一些常见陷阱等高级内容。
+这篇文章列出了在 TypeScript 中使用模块来管理代码的各种方式。这些内容会覆盖内部和外部的模块，并讨论如何恰当地以及正确地使用它们。我们也会了解一些如何使用外部模块，以及在 TypeScript 中使用模块的一些常见陷阱等高级内容。
 
 ###First steps 第一步
 

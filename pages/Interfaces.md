@@ -6,7 +6,7 @@ Introduction 介绍
 
 One of TypeScript's core principles is that type-checking focuses on the `shape` that values have. This is sometimes called "duck typing" or "structural subtyping". In TypeScript, interfaces fill the role of naming these types, and are a powerful way of defining contracts within your code as well as contracts with code outside of your project. 
 
-TypeScript 的一个核心原则是类型检查着眼于值的结构。这种原则有时被称作 “[鸭子类型](https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B)” 或 “structural subtyping”。在 TypeScript 中，接口承担了命名这些类型的任务，它也是一个很有力地定义私有代码和外部代码结构的方式。
+TypeScript 的一个核心原则是：类型检查着眼于值的 `结构`。这种原则有时被称作 “[鸭子类型](https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B)” 或 “structural subtyping”。在 TypeScript 中，接口承担了命名这些类型的任务，它也是一个很有力地定义私有代码和外部代码结构的方式。
 
 Our First Interface 第一个接口
 ----
@@ -47,7 +47,7 @@ printLabel(myObj);
 
 The interface `LabelledValue` is a name we can now use to describe the requirement in the previous example. It still represents having a single property called `label` that is of type string. Notice we didn't have to explicitly say that the object we pass to `printLabel` implements this interface like we might have to in other languages. Here, it's only the shape that matters. If the object we pass to the function meets the requirements listed, then it's allowed.
 
-`LabelledValue` 是接口名称，我们可以用它来描述上面例子的参数需求。它代表了拥有一个字符串格式的 `label` 属性。这里只要求它的结构类似，并不需要像其他语言中那样，要求传给 `printLabel` 的对象必须实现自这个接口。如果传给函数的对象符合需求列表，那它就是被允许的。
+`LabelledValue` 是接口名称，我们可以用它来描述上面例子的参数需求。它代表了拥有一个字符串格式的 `label` 属性。这里只要求它的结构类似，并不需要像其他语言中那样，要求传给 `printLabel` 的对象必须实现自这个接口。如果传给函数的对象符合列出的需求，那它就是被允许的。
 
 It's worth pointing out that the type-checker does not require that these properties come in any sort of order, only that the properties the interface requires are present and have the required type.
 
@@ -165,7 +165,7 @@ mySearch = function(src: string, sub: string) {
 
 Function parameters are checked one at a time, with the type in each corresponding parameter position checked against each other. Here, also, the return type of our function expression is implied by the values it returns (here _false_ and _true_). Had the function expression returned numbers or strings, the type-checker would have warned us that return type doesn't match the return type described in the SearchFunc interface.
 
-函数的参数会按照它在接口中对应的定义被挨个检查，也会根据函数的返回值（这里是 _true_ 或 _false_ ）来检查其类型{需要重新翻译}。如果函数返回了数字或字符串，我们会得到函数返回值类型与 SearchFunc 接口中描述的不一致的警告。
+函数的参数会按照它在接口中对应的定义被逐个检查，也会根据函数的返回值（这里是 _true_ 或 _false_ ）来检查其类型{需要重新翻译}。如果函数返回了数字或字符串，我们会得到函数返回值类型与 SearchFunc 接口中的描述不一致的警告。
 
 Array Types 数组类型
 ----
@@ -205,7 +205,7 @@ Class Types 类类型
 
 One of the most common uses of interfaces in languages like C# and Java, that of explicitly enforcing that a class meets a particular contract, is also possible in TypeScript.
 
-在一些语言，如 C# 和 Java 中，使用接口来声明一个类的结构，是非常常见的用法，你也可以在 TypeScript 里这么做。
+在一些语言，如 C# 和 Java 中，使用接口来声明一个类的结构，是很常见的用法，你也可以在 TypeScript 中这么做。
 
 ```ts
 interface ClockInterface {

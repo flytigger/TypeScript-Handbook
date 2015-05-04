@@ -47,9 +47,7 @@ Array 数组
 
 TypeScript, like JavaScript, allows you to work with arrays of values.  Array types can be written in one of two ways.  In the first, you use the type of the elements followed by `[]` to denote an array of that element type:
 
-和 JavaScript 一样，TypeScript 允许你操作值的队列（数组）。
-
-数组类型有两种编写方式，你可以在元素类型后使用 `[]` 来表示这个数据类型的数组：
+和 JavaScript 一样，TypeScript 允许你操作值的队列（数组）。数组类型有两种编写方式，你可以在元素类型后使用 `[]` 来表示这个数据类型的数组：
 
 ```ts
 var list:number[] = [1, 2, 3];
@@ -109,7 +107,7 @@ Any 任意
 
 We may need to describe the type of variables that we may not know when we are writing the application.  These values may come from dynamic content, eg from the user or 3rd party library.  In these cases, we want to opt-out of type-checking and let the values pass through compile-time checks.  To do so, we label these with the `any` type:
 
-当我们编写应用时，很可能需要描述不知道类型的变量。这些值可能来自动态内容，如用户或第三方库。这时，我们想要取消类型检查，并让这些值通过编译时的检查。为了实现这种想法，我们将这些值标记为 `any` （任意）类型：
+当我们编写应用时，很可能需要描述不知道类型的变量。这些值可能来自动态内容，如用户或第三方库。这时，我们想要取消类型检查，并让这些值通过编译时的检查。为了达到这个目的，我们将这些值标记为 `any` （任意）类型：
 
 ```ts
 var notSure: any = 4;

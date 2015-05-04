@@ -6,14 +6,14 @@ Introduction 介绍
 
 Traditional JavaScript focuses on functions and prototype-based inheritance as the basic means of building up reusable components, but this may feel a bit awkward to programmers more comfortable with an object-oriented approach, where classes inherit functionality and objects are built from these classes. Starting with ECMAScript 6, the next version of JavaScript, JavaScript programmers will be able to build their applications using this object-oriented class-based approach. In TypeScript, we allow developers to use these techniques now, and compile them down to JavaScript that works across all major browsers and platforms, without having to wait for the next version of JavaScript.
 
-传统的 JavaScript 通过函数和基于原型继承的方式来构建可复用组件，但对于习惯了基于类继承和由类创建对象的面向对象语言的开发者来说，这是非常奇怪的做法。从 JavaScript 的下一个版本——ECMAScript 6 开始，JavaScript 开发者就可以使用面向对象的基于类的方式来创建应用了。在 TypeScript 中，开发者无需等待新版本 JavaScript 发布，现在就可以使用这些新技术了。编译器会将代码编译成兼容所有主流浏览器和平台的代码来执行。
+传统的 JavaScript 通过函数和基于原型继承的方式来构建可复用组件，但对于习惯了基于类继承和由类创建对象的面向对象语言的开发者来说，这是非常奇怪的做法。从 JavaScript 的下一个版本——ECMAScript 6 开始，JavaScript 开发者就可以使用面向对象的基于类的方式来创建应用了。在 TypeScript 中，开发者无需等待新版本 JavaScript 发布，现在就可以使用这些新技术。编译器会将代码编译成兼容所有主流浏览器和平台的代码来执行。
 
 Classes 类
 ----
 
 Let's take a look at a simple class-based example:
 
-我们来看一下一个基于类的例子：
+我们来看一个基于类的例子：
 
 ```ts
 class Greeter {
@@ -90,7 +90,7 @@ This example covers quite a bit of the inheritance features in TypeScript that a
 
 The example also shows off being able to override methods in the base class with methods that are specialized for the subclass. Here both `Snake` and `Horse` create a `move` method that overrides the `move` from `Animal`, giving it functionality specific to each class.
 
-这个例子也展示了在子类中重写父类中方法。 `Snake` 和 `Horse` 都重写了 `Animal` 的 `move` 方法，让它们有各自特定的功能。
+这个例子也展示了在子类中重写父类中的方法。 `Snake` 和 `Horse` 都重写了 `Animal` 的 `move` 方法，让它们有各自特定的功能。
 
 Private/Public modifiers 私有/共有操作符
 ----
@@ -173,7 +173,7 @@ class Animal {
 
 Using `private` in this way creates and initializes a private member, and similarly for `public`. 
 
-使用 `provate` 通过这种方式创建和初始化私有成员，`public` 也可以这样。
+使用 `private` 通过这种方式创建和初始化私有成员，`public` 也可以这样。
 
 Accessors 存取器
 ----
