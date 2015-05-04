@@ -13,28 +13,28 @@ When defining interfaces (for example, "options" objects), you have a choice abo
 
 ## Callbacks
 
-Many JavaScript libraries take a function as a parameter, then invoke that function later with a known set of arguments. When writing the function signatures for these types, *do not* mark those parameters as optional. The right way to think of this is _"What parameters will be provided?"_, not _"What parameters will be consumed?"_. While TypeScript 0.9.7 and above does not enforce that the optionality, bivariance on argument optionality might be enforced by an external linter.
+Many JavaScript libraries take a function as a parameter, then invoke that function later with a known set of arguments. When writing the function signatures for these types, *do not* mark those parameters as optional. The right way to think of this is *"What parameters will be provided?"*, not *"What parameters will be consumed?"*. While TypeScript 0.9.7 and above does not enforce that the optionality, bivariance on argument optionality might be enforced by an external linter.
 
 ## Extensibility and Declaration Merging
 
 When writing definition files, it's important to remember TypeScript's rules for extending existing objects. You might have a choice of declaring a variable using an anonymous type or an interface type:
 
-*Anonymously-typed var*
+#### Anonymously-typed var
 
-```
+```TypeScript
 declare var MyPoint: { x: number; y: number; };
 ```
 
-*Interfaced-typed var*
+#### Interfaced-typed var
 
-```
+```TypeScript
 interface SomePoint { x: number; y: number; }
 declare var MyPoint: SomePoint;
 ```
 
-From a consumption side these declarations are identical, but the type {{SomePoint}} can be extended through interface merging:
+From a consumption side these declarations are identical, but the type `SomePoint` can be extended through interface merging:
 
-```
+```TypeScript
 interface SomePoint { z: number; }
 MyPoint.z = 4; // OK
 ```
@@ -45,13 +45,13 @@ Whether or not you want your declarations to be extensible in this way is a bit 
 
 Classes in TypeScript create two separate types: the instance type, which defines what members an instance of a class has, and the constructor function type, which defines what members the class constructor function has. The constructor function type is also known as the "static side" type because it includes static members of the class.
 
-While you can reference the static side of a class using the {{typeof}} keyword, it is sometimes useful or necessary when writing definition files to use the _decomposed class_ pattern which explicitly separates the instance and static types of class.
+While you can reference the static side of a class using the `typeof` keyword, it is sometimes useful or necessary when writing definition files to use the *decomposed class* pattern which explicitly separates the instance and static types of class.
 
 As an example, the following two declarations are nearly equivalent from a consumption perspective:
 
-*Standard*
+#### Standard
 
-```
+```TypeScript
 class A {
     static st: string;
     inst: number;
@@ -59,9 +59,9 @@ class A {
 }
 ```
 
-*Decomposed*
+#### Decomposed
 
-```
+```TypeScript
 interface A_Static {
     new(m: any): A_Instance;
     st: string;
@@ -73,23 +73,24 @@ declare var A: A_Static;
 ```
 
 The trade-offs here are as follows:
-* Standard classes can be inherited from using {{extends}}; decomposed classes cannot. This might change in later version of TypeScript if arbitrary {{extends}} expressions are allowed.
+* Standard classes can be inherited from using `extends`; decomposed classes cannot. This might change in later version of TypeScript if arbitrary `extends` expressions are allowed.
 * It is possible to add members later (through declaration merging) to the static side of both standard and decomposed classes
 * It is possible to add instance members to decomposed classes, but not standard classes
 * You'll need to come up with sensible names for more types when writing a decomposed class
 
 ## Naming Conventions
 
-In general, do not prefix interfaces with {{I}} (e.g. {{IColor}}). Because the concept of an interface in TypeScript is much more broad than in C# or Java, the {{IFoo}} naming convention is not broadly useful.
+In general, do not prefix interfaces with `I` (e.g. `IColor`). Because the concept of an interface in TypeScript is much more broad than in C# or Java, the `IFoo` naming convention is not broadly useful.
 
 # Examples
 
-Let's jump in to the examples section. For each example, sample _usage_ of the library is provided, followed by the definition code that accurately types the usage. When there are multiple good representations, more than one definition sample might be listed.
+Let's jump in to the examples section. For each example, sample *usage* of the library is provided, followed by the definition code that accurately types the usage. When there are multiple good representations, more than one definition sample might be listed.
 
 ## Options Objects
 
-*Usage*
-```
+#### Usage
+
+```TypeScript
 animalFactory.create("dog");
 animalFactory.create("giraffe", { name: "ronald" });
 animalFactory.create("panda", { name: "bob", height: 400 });
@@ -97,8 +98,9 @@ animalFactory.create("panda", { name: "bob", height: 400 });
 animalFactory.create("cat", { height: 32 });
 ```
 
-*Typing*
-```
+#### Typing
+
+```TypeScript
 module animalFactory {
     interface AnimalOptions {
         name: string;
@@ -110,14 +112,17 @@ module animalFactory {
 ```
 
 ## Functions with Properties
-*Usage*
-```
+
+#### Usage
+
+```TypeScript
 zooKeeper.workSchedule = "morning";
 zooKeeper(giraffeCage);
 ```
 
-*Typing*
-```
+#### Typing
+
+```TypeScript
 // Note: Function must precede module
 function zooKeeper(cage: AnimalCage);
 module zooKeeper {
@@ -126,8 +131,10 @@ module zooKeeper {
 ```
 
 ## New + callable methods
-*Usage*
-```
+
+#### Usage
+
+```TypeScript
 var w = widget(32, 16);
 var y = new widget("sprocket");
 // w and y are both widgets
@@ -135,8 +142,9 @@ w.sprock();
 y.sprock();
 ```
 
-*Typing*
-```
+#### Typing
+
+```TypeScript
 interface Widget {
     sprock(): void;
 }
@@ -150,8 +158,10 @@ declare var widget: WidgetFactory;
 ```
 
 ## Global / External-agnostic Libraries
-*Usage*
-```
+
+#### Usage
+
+```TypeScript
 // Either
 import x = require('zoo');
 x.open();
@@ -159,8 +169,9 @@ x.open();
 zoo.open();
 ```
 
-*Typing*
-```
+#### Typing
+
+```TypeScript
 module zoo {
   function open(): void;
 }
@@ -171,8 +182,10 @@ declare module "zoo" {
 ```
 
 ## Single Complex Object in External Modules
-*Usage*
-```
+
+#### Usage
+
+```TypeScript
 // Super-chainable library for eagles
 import eagle = require('./eagle');
 // Call directly
@@ -183,8 +196,9 @@ var eddie = new eagle(1000);
 eagle.favorite = 'golden';
 ```
 
-*Typing*
-```
+#### Typing
+
+```TypeScript
 // Note: can use any name here, but has to be the same throughout this file
 declare function eagle(name: string): eagle;
 declare module eagle {
@@ -199,15 +213,18 @@ export = eagle;
 ```
 
 ## Callbacks
-*Usage*
-```
+
+#### Usage
+
+```TypeScript
 addLater(3, 4, (x) => console.log('x = ' + x));
 ```
 
-*Typing*
-```
+#### Typing
+
+```TypeScript
 // Note: 'void' return type is preferred here
 function addLater(x: number, y: number, (sum: number) => void): void;
 ```
 
-Please post a comment [here|https://github.com/Microsoft/TypeScript/issues] if there's a pattern you'd like to see documented# We'll add to this as we can.
+Please post a comment [here|https://github.com/Microsoft/TypeScript/issues] if there's a pattern you'd like to see documented! We'll add to this as we can.
