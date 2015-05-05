@@ -228,7 +228,7 @@ import someMod = require('someModule');
 
 We specify which objects are visible outside the module by using the _export_ keyword on a top-level declaration, similarly to how _export_ defined the public surface area of an internal module.
 
-我们在顶级声明中使用 _export_ 关键词指定那些对象在模块外可见，就像使用 _export_ 定义内部模块的公共部分一样。
+我们在顶级声明中使用 _export_ 关键词指定哪些对象在模块外可见，就像使用 _export_ 定义内部模块的公共部分一样。
 
 To compile, we must specify a module target on the command line. For node.js, use _--module commonjs_; for require.js, use _--module amd_. For example:
 
@@ -469,11 +469,13 @@ Working with Other JavaScript Libraries 使用其他 JavaScript 库
 
 To describe the shape of libraries not written in TypeScript, we need to declare the API that the library exposes. Because most JavaScript libraries expose only a few top-level objects, modules are a good way to represent them. We call declarations that don't define an implementation "ambient". Typically these are defined in .d.ts files. If you're familiar with C/C++, you can think of these as .h files or 'extern'. Let's look at a few examples with both internal and external examples.
 
-为了描述非 TypeScript 写成的库的结构，我们需要声明库中暴露的 API。大多数 JavaScript 库只暴露出少量的顶级对象，所以用模块来描述它们是比较好的方式。{暂时无法翻译}
+为了描述非 TypeScript 写成的库的结构，我们需要声明库中暴露的 API。大多数 JavaScript 库只暴露出少量的顶级对象，所以用模块来描述它们是比较好的方式。{暂时无法翻译}通常定义被写入一个 .d.ts 文件中。如果你熟悉 C/C++，你可以将它看成 .h 文件或 'extern' 语句。让我们来看一些内部或外部模块的例子。
 
 ###Ambient Internal Modules 包装内部模块
 
 The popular library D3 defines its functionality in a global object called 'D3'. Because this library is loaded through a _script_ tag (instead of a module loader), its declaration uses internal modules to define its shape. For the TypeScript compiler to see this shape, we use an ambient internal module declaration. For example:
+
+流行的 D3 库将其功能定义到一个 'D3' 的全局对象中。由于这个库是通过 _script_ 标签（而非模块加载器）加载的，它的声明使用了内部模块来定义其结构。为了让 TypeScript 编译器访问到它的结构，我们使用一个内部模块的包装声明。例如：
 
 ####D3.d.ts (simplified excerpt)
 
@@ -501,7 +503,9 @@ declare var d3: D3.Base;
 
 ###Ambient External Modules 包装外部模块
 
-In node.js, most tasks are accomplished by loading one or more modules. We could define each module in its own .d.ts file with top-level export declarations, but it's more convenient to write them as one larger .d.ts file. To do so, we use the quoted name of the module, which will be available to a later import.  For example:
+In node.js, most tasks are accomplished by loading one or more modules. We could define each module in its own .d.ts file with top-level export declarations, but it's more convenient to write them as one larger .d.ts file. To do so, we use the quoted name of the module, which will be available to a later import. For example:
+
+在 Node.js 中，多数任务都可以通过加载一个或多个模块来完成。我们可以为每个模块编写一个 .d.ts 文件来定义它的顶级 export 声明，不过讲这些声明写到一个 .d.ts 文件中更方便。为了达到这个目标，我们将模块名使用引号包围起来，它可以被其他模块导入。例如：
 
 ####node.d.ts (simplified excerpt)
 
@@ -525,6 +529,8 @@ declare module "path" {
 
 Now we can _/// <reference>_ node.d.ts and then load the modules using e.g. _import url = require('url');_.
 
+现在我们可以添加 _/// <reference>_ 引入 node.d.ts，然后通过 _import url = require('url');_ 来加载模块。
+
 ```ts
 ///<reference path="node.d.ts"/>
 import url = require("url");
@@ -543,11 +549,19 @@ In this section we'll describe various common pitfalls in using internal and ext
 
 A common mistake is to try to use the /// <reference> syntax to refer to an external module file, rather than using import. To understand the distinction, we first need to understand the three ways that the compiler can locate the type information for an external module.
 
+一个常见的错误是使用 /// <reference> 来引用一个外部模块文件，而不是使用 import。为了弄清楚它们的区别，我们需要先了解编译器定位外部模块类型信息的三种方式。
+
 The first is by finding a .ts file named by an _import x = require(...);_ declaration. That file should be an implementation file with top-level import or export declarations.
+
+第一种方式是通过 _import x = require(...);_ 声明的名称来查找 .ts 文件。该文件必须是包含顶级 import 或 export 声明的实现文件。
 
 The second is by finding a .d.ts file, similar to above, except that instead of being an implementation file, it's a declaration file (also with top-level import or export declarations).
 
+第二种方式类似上面一种，但会查找一个声明文件。
+
 The final way is by seeing an "ambient external module declaration", where we 'declare' a module with a matching quoted name.
+
+第三种方式是查找一个 "外部模块的包装声明"，我们在那里 '声明' 了一个模块。
 
 ####myModules.d.ts
 
@@ -567,9 +581,13 @@ import m = require("SomeModule");
 
 The reference tag here allows us to locate the declaration file that contains the declaration for the ambient external module. This is how the node.d.ts file that several of the TypeScript samples use is consumed, for example.
 
+这里的 reference 标签让我们可以定位一个包含了外部模块声明的文件。例如，其他例子中使用的 node.d.ts。
+
 ###Needless Namespacing 多余的命名空间
 
 If you're converting a program from internal modules to external modules, it can be easy to end up with a file that looks like this:
+
+如果你想要将一个内部模块转换为外部模块，你可以在文件尾部这么写：
 
 ####shapes.ts
 
@@ -582,6 +600,8 @@ export module Shapes {
 
 The top-level module here _Shapes_ wraps up _Triangle_ and _Square_ for no reason. This is confusing and annoying for consumers of your module:
 
+顶级的模块 _Shapes_ 包含了 _Triangle_ 和 _Square_ ，但它是没意义的。这让模块的用户感到迷惑和苦恼：
+
 ####shapeConsumer.ts
 
 ```ts
@@ -591,9 +611,15 @@ var t = new shapes.Shapes.Triangle(); // shapes.Shapes?
 
 A key feature of external modules in TypeScript is that two different external modules will never contribute names to the same scope. Because the consumer of an external module decides what name to assign it, there's no need to proactively wrap up the exported symbols in a namespace.
 
+TypeScript 中外部模块的一个关键功能是，两个不同的外部模块不共享同一个作用域。因为外部模块的用户可以自己决定它的命名，所以没有必要再将导出的符号放到一个命名空间里。
+
 To reiterate why you shouldn't try to namespace your external module contents, the general idea of namespacing is to provide logical grouping of constructs and to prevent name collisions. Because the external module file itself is already a logical grouping, and its top-level name is defined by the code that imports it, it's unnecessary to use an additional module layer for exported objects.
+
+重申一下为什么你不该将外部模块放到命名空间里，命名空间的用途是提供逻辑分组，并防止命名冲突。因为外部模块文件本身已经是逻辑组，并且它的顶级名称是导入它的代码命名的，所以不需要使用额外的模块层。
  
 Revised Example:
+
+修正的例子：
 
 ####shapes.ts
 
@@ -612,3 +638,5 @@ var t = new shapes.Triangle();
 ###Trade-offs for External Modules
 
 Just as there is a one-to-one correspondence between JS files and modules, TypeScript has a one-to-one correspondence between external module source files and their emitted JS files. One effect of this is that it's not possible to use the _--out_ compiler switch to concatenate multiple external module source files into a single JavaScript file.
+
+像 JS 文件和模块之间的一对一关系一样，TypeScript 的外部模块源文件和它的引用文件也是一对一的。所以我们不能通过 _--out_ 编译参数将多个外部模块串联到一个 JavaScript 文件中。

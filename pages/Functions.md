@@ -66,7 +66,7 @@ We can add types to each of the parameters and then to the function itself to ad
 
 Now that we've typed the function, let's write the full type of the function out by looking at the each piece of the function type. 
 
-我们已经为函数添加了类型，{暂时无法翻译}。
+我们已经为函数添加了类型，{暂时无法翻译}我们来逐个部分编写函数类型。
 
 ```ts
 var myAdd: (x:number, y:number)=>number = 
@@ -84,11 +84,11 @@ var myAdd: (baseValue:number, increment:number)=>number =
 
 As long as the parameter types line up, it's considered a valid type for the function, regardless of the names you give the parameters in the function type. 
 
-当启用参数类型时，它被当做一个可用的函数类型，不论你在函数类型中写的参数名是什么。
+当启用参数类型时，它被当做函数中一个可用的类型，不论你在函数类型中写的参数名是什么。
 
 The second part is the return type. We make it clear which is the return type by using a fat arrow (=>) between the parameters and the return type. As mentioned before, this is a required part of the function type, so if the function doesn't return a value, you would use `void` instead of leaving it off.
 
-第二部分是返回值类型。我们在参数和返回值类型之间使用一个 '=>' 来声明返回值的类型。像前面提到的，函数的返回值类型是必须制定的，如果函数没有返回值，可以用 `void` 来代替。
+第二部分是返回值类型。我们在参数和返回值类型之间使用一个箭头（'=>'）来声明返回值的类型。像前面提到的，函数的返回值类型是必须指定的。如果函数没有返回值，可以用 `void` 来代替。
 
 Of note, only the parameters and the return type make up the function type. Captured variables are not reflected in the type. In effect, captured variables are part of the 'hidden state' of any function and do not make up its API.
 
@@ -132,7 +132,7 @@ var result3 = buildName("Bob", "Adams");  // ah, just right
 
 In JavaScript, every parameter is considered optional, and users may leave them off as they see fit. When they do, they're assumed to be undefined. We can get this functionality in TypeScript by using the '?' beside parameters we want optional. For example, let's say we want the last name to be optional:
 
-在 JavaScript 中，每个参数都被当做可选的，用户可以随便省略它。当参数被省略时，它的值是 undefinde。我们可以在 TypeScript 中的参数后加上 '?' 来表示该参数可以被省略。例如，我们想让姓部分可选：
+在 JavaScript 中，每个参数都被当做可选的，用户可以随便省略它。当参数被省略时，它的值是 undefinde。我们可以在 TypeScript 中的参数后加上 '?' 来表示该参数可以被省略。例如，我们想让 lastName 参数可选：
 
 ```ts
 function buildName(firstName: string, lastName?: string) {
@@ -149,7 +149,7 @@ var result3 = buildName("Bob", "Adams");  // ah, just right
 
 Optional parameters must follow required parameters. Had we wanted to make the first name optional rather than the last name, we would need to change the order of parameters in the function, putting the first name last in the list.
 
-可选参数必须放在必选参数之后。如果我们想让名字而不是姓可选，那必须将名字参数放在姓参数之后。
+可选参数必须放在必选参数之后。如果我们想让 firstName 而不是 lastName 可选，那必须将 firstName 参数放在 lastName 参数之后。
 
 In TypeScript, we can also set up a value that an optional parameter will have if the user does not provide one. These are called default parameters. Let's take the previous example and default the last name to "Smith".
 
