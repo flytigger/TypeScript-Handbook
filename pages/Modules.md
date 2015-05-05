@@ -172,7 +172,7 @@ strings.forEach(s => {
 
 Once there are multiple files involved, we'll need to make sure all of the compiled code gets loaded. There are two ways of doing this.
 
-一旦有多个相关文件，我们需要保证所有需要被便衣的代码都被载入了。有两种方式来实现。
+一旦有多个相关文件，我们需要保证所有需要被编译的代码都被载入了。有两种方式来实现。
 
 First, we can use concatenated output using the _--out_ flag to compile all of the input files into a single JavaScript output file:
 
@@ -190,9 +190,9 @@ The compiler will automatically order the output file based on the reference tag
 tsc --out sample.js Validation.ts LettersOnlyValidator.ts ZipCodeValidator.ts Test.ts
 ```
 
-Alternatively, we can use per-file compilation (the default) to emit one JavaScript file for each input file. If multiple JS files get produced, we'll need to use _<script>_ tags on our webpage to load each emitted file in the appropriate order, for example:
+Alternatively, we can use per-file compilation (the default) to emit one JavaScript file for each input file. If multiple JS files get produced, we'll need to use `<script>` tags on our webpage to load each emitted file in the appropriate order, for example:
 
-另外，我们也可以将每个输入的文件单独编译（默认行为）。如果产生了多个 JS 文件，我们需要在网页中使用 _<script>_ 标签通过特定的顺序载入每个文件，例如：
+另外，我们也可以将每个输入的文件单独编译（默认行为）。如果产生了多个 JS 文件，我们需要在网页中使用 `<script>` 标签通过特定的顺序载入每个文件，例如：
 
 ####MyTestPage.html (excerpt)
 
