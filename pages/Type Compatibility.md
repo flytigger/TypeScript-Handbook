@@ -1,7 +1,7 @@
 Type Compatibility 类型兼容性
 ====
 
-Introduction
+Introduction 介绍
 ----
 
 Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of relating types based solely on their members. This is in contrast with nominal typing. Consider the following code:
@@ -24,11 +24,11 @@ In nominally-typed languages like C# or Java, the equivalent code would be an er
 
 TypeScript’s structural type system was designed based on how JavaScript code is typically written. Because JavaScript widely uses anonymous objects like function expressions and object literals, it’s much more natural to represent the kinds of relationships found in JavaScript libraries with a structural type system instead of a nominal one.
 
-###A Note on Soundness
+###A Note on Soundness 稳健性的备注
 
 TypeScript’s type system allows certain operations that can’t be known at compile-time to be safe. When a type system has this property, it is said to not be “sound”. The places where TypeScript allows unsound behavior were carefully considered, and throughout this document we’ll explain where these happen and the motivating scenarios behind them.
 
-Starting out
+Starting out 起步
 ----
 
 The basic rule for TypeScript’s structural type system is that x is compatible with y if y has at least the same members as x. For example:
@@ -59,7 +59,7 @@ Note that ‘y’ has an extra ‘location’ property, but this does not create
 
 This comparison process proceeds recursively, exploring the type of each member and sub-member.
 
-Comparing two functions
+Comparing two functions 比较两个函数
 ----
 
 While comparing primitive types and object types is relatively straightforward, the question of what kinds of functions should be considered compatible. Let’s start with a basic example of two functions that differ only in their argument lists:
@@ -100,7 +100,7 @@ y = x; // Error because x() lacks a location property
 
 The type system enforces that the source function’s return type be a subtype of the target type’s return type.
 
-###Function Argument Bivariance
+###Function Argument Bivariance 函数参数的二元性
 
 When comparing the types of function parameters, assignment succeeds if either the source parameter is assignable to the target parameter, or vice versa. This is unsound because a caller might end up being given a function that takes a more specialized type, but invokes the function with a less specialized type. In practice, this sort of error is rare, and allowing this enables many common JavaScript patterns. A brief example:
 
@@ -126,7 +126,7 @@ listenEvent(EventType.Mouse, <(e: Event) => void>((e: MouseEvent) => console.log
 listenEvent(EventType.Mouse, (e: number) => console.log(e));
 ```
 
-###Optional Arguments and Rest Arguments
+###Optional Arguments and Rest Arguments 可选参数和剩余参数
 
 When comparing functions for compatibility, optional and required parameters are interchangeable. Extra optional parameters of the source type are not an error, and optional parameters of the target type without corresponding parameters in the target type are not an error.
 
@@ -148,7 +148,7 @@ invokeLater([1, 2], (x, y) => console.log(x + ', ' + y));
 invokeLater([1, 2], (x?, y?) => console.log(x + ', ' + y));
 ```
 
-###Functions with overloads
+###Functions with overloads 重载的函数
 
 When a function has overloads, each overload in the source type must be matched by a compatible signature on the target type. This ensures that the target function can be called in all the same situations as the source function. Functions with specialized overload signatures (those that use string literals in their overloads) do not use their specialized signatures when checking for compatibility.
 
@@ -168,7 +168,7 @@ status = Color.Green;  //error
 Classes
 ----
 
-Classes work similarly to object literal types and interfaces with one exception: they have both a static and an instance type. When comparing two objects of a class type, only members of the instance are compared. Static members and constructors do not affect compatibility.   
+Classes work similarly to object literal types and interfaces with one exception: they have both a static and an instance type. When comparing two objects of a class type, only members of the instance are compared. Static members and constructors do not affect compatibility.
 
 ```ts
 class Animal {
@@ -188,7 +188,7 @@ a = s;  //OK
 s = a;  //OK
 ```
 
-###Private members in classes
+###Private members in classes 类的私有成员
 
 Private members in a class affect their compatibility. When an instance of a class is checked for compatibility, if it contains a private member, the target type must also contain a private member that originated from the same class. This allows, for example, a class to be assignment compatible with its super class but not with classes from a different inheritance hierarchy which otherwise have the same shape.
 
@@ -239,7 +239,7 @@ identity = reverse;  // Okay because (x: any)=>any matches (y: any)=>any
 Advanced Topics
 ----
 
-###Subtype vs Assignment
+###Subtype vs Assignment 子类和指派
 
 So far, we've used 'compatible', which is not a term defined in the language spec. In TypeScript, there are two kinds of compatibility: subtype and assignment. These differ only in that assignment extends subtype compatibility with rules to allow assignment to and from 'any' and to and from enum with corresponding numeric values. 
 

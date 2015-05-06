@@ -6,10 +6,14 @@ Introduction 介绍
 
 Along with traditional OO hierarchies, another popular way of building up classes from reusable components is to build them by combining simpler partial classes. You may be familiar with the idea of mixins or traits for languages like Scala, and the pattern has also reached some popularity in the JavaScript community.
 
+根据传统面向对象的层级结构，另一种流行的从可重用组件创建类的方式是，将简单的部分类组合起来。如果你用过 Scala 之类的语言，你应该会对混合和特征的思想比较熟悉了，这种模式也在 JavaScript 社区中获得了一些好评。
+
 Mixin sample 混合的例子
 ----
 
 In the code below, we show how you can model mixins in TypeScript. After the code, we'll break down how it works.
+
+在下面的例子中，我们向你展示了 TypeScript 中的混合范例。在代码之后，我们会解析它的细节。
 
 ```ts
 // Disposable Mixin
