@@ -246,7 +246,7 @@ Static Properties 静态属性
 
 Up to this point, we've only talked about the _instance_ members of the class, those that show up on the object when its instantiated. We can also create _static_ members of a class, those that are visible on the class itself rather than on the instances. In this example, we use `static` on the origin, as it's a general value for all grids. Each instance accesses this value through prepending the name of the class. Similarly to prepending 'this.' in front of instance accesses, here we prepend 'Grid.' in front of static accesses.
 
-截止到目前，我们只讨论了类的 _实例_ 成员，它们只会在类的实例中出现。我们也可以创建类的 _静态_ 成员，它们只在类中可见，在其实例中不可见。在这个例子中，我们使用 `static` 声明了 origin，使其作为所有 grid 的公共值。每个实例都可以通过类名 `Grid` 作为前缀访问这个值，像使用 `this`  那样。
+截止到目前，我们只讨论了类的 _实例_ 成员，它们只会在类的实例中出现。我们也可以创建类的 _静态_ 成员，它们只在类中可见，在其实例中不可见。在这个例子中，我们使用 `static` 声明了 origin，使其作为所有 grid 的公共值。每个实例都可以通过类名 `Grid` 作为前缀访问这个值，像使用 `this` 那样。
 
 ```ts
 class Grid {

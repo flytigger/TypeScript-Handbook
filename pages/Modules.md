@@ -232,7 +232,7 @@ We specify which objects are visible outside the module by using the _export_ ke
 
 To compile, we must specify a module target on the command line. For node.js, use _--module commonjs_; for require.js, use _--module amd_. For example:
 
-我们必须在命令行中指定模块编译的目标。 _--module commonjs_ 编译成 node.js 模块，  _--module amd_ 编译成 require.js 模块。例如：
+我们必须在命令行中指定模块编译的目标。 _--module commonjs_ 编译成 node.js 模块， _--module amd_ 编译成 require.js 模块。例如：
 
 ```
 tsc --module commonjs Test.ts

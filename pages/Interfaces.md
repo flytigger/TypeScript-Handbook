@@ -212,7 +212,7 @@ interface ClockInterface {
     currentTime: Date;
 }
 
-class Clock implements ClockInterface  {
+class Clock implements ClockInterface {
     currentTime: Date;
     constructor(h: number, m: number) { }
 }
@@ -228,7 +228,7 @@ interface ClockInterface {
     setTime(d: Date);
 }
 
-class Clock implements ClockInterface  {
+class Clock implements ClockInterface {
     currentTime: Date;
     setTime(d: Date) {
         this.currentTime = d;
@@ -252,7 +252,7 @@ interface ClockInterface {
     new (hour: number, minute: number);
 }
 
-class Clock implements ClockInterface  {
+class Clock implements ClockInterface {
     currentTime: Date;
     constructor(h: number, m: number) { }
 }
@@ -271,7 +271,7 @@ interface ClockStatic {
     new (hour: number, minute: number);
 }
 
-class Clock  {
+class Clock {
     currentTime: Date;
     constructor(h: number, m: number) { }
 }
