@@ -14,7 +14,7 @@ Table of Contents 目录
 4. [Modules 模块](./pages/Modules.md)
 5. [Functions 函数](./pages/Functions.md)
 6. [Generics 泛型](./pages/Generics.md)
-7. Mixins
+7. [Mixins 混合](./pages/Mixins.md)
 8. Declaration Merging
 9. Type Inference
 10. Type Compatibility
