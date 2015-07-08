@@ -15,7 +15,7 @@ Table of Contents 目录
 5. [Functions 函数](./pages/Functions.md)
 6. [Generics 泛型](./pages/Generics.md)
 7. [Mixins 混合](./pages/Mixins.md)
-8. Declaration Merging
+8. [Declaration Merging 声明合并](./pages/Declaration Merging.md)
 9. Type Inference
 10. Type Compatibility
 11. Writing .d.ts files
