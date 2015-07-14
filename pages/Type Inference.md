@@ -67,25 +67,35 @@ Contextual Type 上下文类型
 
 Type inference also works in "the other direction" in some cases in TypeScript. This is known as "contextual typing". Contextual typing occurs when the type of an expression is implied by its location. For example: 
 
+TypeScript 中的推断也会在 "某些场景" 下发生，就是 "上下文类型"。它发生在表达式的类型隐含在其所在位置中时，例如：
+
 ```ts
 window.onmousedown = function(mouseEvent) { 
-    console.log(mouseEvent.buton);  //<- Error
+    console.log(mouseEvent.button);  //<- Error
 };
 ```
 
-For the code above to give the type error, the TypeScript type checker used the type of the Window.onmousedown function to infer the type of the function expression on the right hand side of the assignment. When it did so, it was able to infer the type of the `mouseeVent` parameter. If this function expression were not in a contextually typed position, the `mouseeVent` parameter would have type `any`, and no error would have been issued.
+For the code above to give the type error, the TypeScript type checker used the type of the window.onmousedown function to infer the type of the function expression on the right hand side of the assignment. When it did so, it was able to infer the type of the `mouseEvent` parameter. If this function expression were not in a contextually typed position, the `mouseEvent` parameter would have type `any`, and no error would have been issued.
+
+上面的代码会抛出一个类型错误，TypeScript 使用 window.onmousedown 函数来推断表达式右侧的类型。因此，它可以推断出 `mouseEvent` 参数的类型。如果函数表达式不在类似的场景中，`mouseEvent` 参数会是 `any` 类型，就不会有错误产生了。
 
 If the contextually typed expression contains explicit type information, the contextual type is ignored. Had we written the above example:
 
+如果上下文类型表达式中包含明确的类型信息，上下文类型会被忽略。像上面的例子：
+
 ```ts
 window.onmousedown = function(mouseEvent: any) { 
-    console.log(mouseEvent.buton);  //<- Now, no error is given
+    console.log(mouseEvent.button);  //<- Now, no error is given
 };
 ```
 
 The function expression with an explicit type annotation on the parameter will override the contextual type. Once it does so, no error is given as no contextual type applies.
 
+函数声明中明确指出了参数类型，它会覆盖上下文类型。因此，就不会有错误产生了。
+
 Contextual typing applies in many cases. Common cases include arguments to function calls, right hand sides of assignments, type assertions, members of object and array literals, and return statements. The contextual type also acts as a candidate type in best common type. For example:
+
+上下文类型会在很多场景下被采用。常见的场景包括函数调用的参数，赋值的右侧部分，类型断言，对象和数组字面量，以及返回声明。上下文类型也会作为最优类型的候选类型。例如：
 
 ```ts
 function createZoo(): Animal[] {
@@ -94,3 +104,5 @@ function createZoo(): Animal[] {
 ```
 
 In this example, best common type has a set of four candidates: Animal, Rhino, Elephant, and Snake. Of these, Animal can be chosen by the best common type algorithm.
+
+在这个例子中，最优类型会有四个选项：Animal, Rhino, Elephant, 和 Snake。Animal 会作为最佳选择。
