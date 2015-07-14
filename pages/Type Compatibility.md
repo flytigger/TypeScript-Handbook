@@ -6,6 +6,8 @@ Introduction 介绍
 
 Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of relating types based solely on their members. This is in contrast with nominal typing. Consider the following code:
 
+TypeScript 的类型兼容性基于结构子类型。
+
 ```ts
 interface Named {
     name: string;

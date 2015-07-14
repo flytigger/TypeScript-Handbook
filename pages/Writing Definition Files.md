@@ -6,6 +6,8 @@ Introduction 介绍
 
 When using an external JavaScript library, or new host API, you'll need to use a declaration file (.d.ts) to describe the shape of that library. This guide covers a few high-level concepts specific to writing definition files, then proceeds with a number of examples that show how to transcribe various concepts to their matching definition file descriptions.
 
+当使用外部 JavaScript 模块，或新的宿主 API 时，你需要使用一个声明文件（.d.ts）来描述模块的结构。
+
 Guidelines and Specifics 指导和规范
 ----
 
