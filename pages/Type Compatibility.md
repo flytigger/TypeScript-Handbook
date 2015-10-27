@@ -29,6 +29,7 @@ Because JavaScript widely uses anonymous objects like function expressions and o
 TypeScript's type system allows certain operations that can't be known at compile-time to be safe. When a type system has this property, it is said to not be "sound". The places where TypeScript allows unsound behavior were carefully considered, and throughout this document we'll explain where these happen and the motivating scenarios behind them.
 
 # Starting out
+
 The basic rule for TypeScript's structural type system is that `x` is compatible with `y` if `y` has at least the same members as `x`. For example:
 
 ```TypeScript
@@ -91,7 +92,7 @@ var items = [1, 2, 3];
 items.forEach((item, index, array) => console.log(item));
 
 // Should be OK!
-items.forEach((item) => console.log(item));
+items.forEach(item => console.log(item));
 ```
 
 Now let's look at how return types are treated, using two functions that differ only by their return type:
@@ -107,6 +108,7 @@ y = x; // Error because x() lacks a location property
 The type system enforces that the source function's return type be a subtype of the target type's return type.
 
 ## Function Argument Bivariance
+
 When comparing the types of function parameters, assignment succeeds if either the source parameter is assignable to the target parameter, or vice versa.
 This is unsound because a caller might end up being given a function that takes a more specialized type, but invokes the function with a less specialized type.
 In practice, this sort of error is rare, and allowing this enables many common JavaScript patterns. A brief example:
@@ -134,6 +136,7 @@ listenEvent(EventType.Mouse, (e: number) => console.log(e));
 ```
 
 ## Optional Arguments and Rest Arguments
+
 When comparing functions for compatibility, optional and required parameters are interchangeable.
 Extra optional parameters of the source type are not an error, and optional parameters of the target type without corresponding parameters in the target type are not an error.
 
@@ -197,11 +200,12 @@ a = s;  //OK
 s = a;  //OK
 ```
 
-## Private members in classes
+## Private and protected members in classes
 
-Private members in a class affect their compatibility.
-When an instance of a class is checked for compatibility, if it contains a private member, the target type must also contain a private member that originated from the same class.
-This allows, for example, a class to be assignment compatible with its super class but not with classes from a different inheritance hierarchy which otherwise have the same shape.
+Private and protected members in a class affect their compatibility.
+When an instance of a class is checked for compatibility, if the instance contains a private member, then the target type must also contain a private member that originated from the same class.
+Likewise, the same applies for an instance with a protected member.
+This allows a class to be assignment compatible with its super class, but *not* with classes from a different inheritance hierarchy which otherwise have the same shape.
 
 # Generics
 

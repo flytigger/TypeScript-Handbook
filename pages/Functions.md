@@ -22,7 +22,7 @@ function add(x, y) {
 var myAdd = function(x, y) { return x+y; };
 ```
 
-Just as in JavaScript, functions can return to variables outside of the function body.
+Just as in JavaScript, functions can refer to variables outside of the function body.
 When they do so, they're said to `capture` these variables.
 While understanding how this works, and the trade-offs when using this technique, are outside of the scope of this article, having a firm understanding how this mechanic is an important piece of working with JavaScript and TypeScript.
 
@@ -169,13 +169,13 @@ The default value of `lastName` disappears in the type, only leaving behind the 
 
 Required, optional, and default parameters all have one thing in common: they talk about one parameter at a time.
 Sometimes, you want to work with multiple parameters as a group, or you may not know how many parameters a function will ultimately take.
-In JavaScript, you can work with the arguments direction using the `arguments` variable that is visible inside every function body.
+In JavaScript, you can work with the arguments directly using the `arguments` variable that is visible inside every function body.
 
 In TypeScript, you can gather these arguments together into a variable:
 
 ```TypeScript
 function buildName(firstName: string, ...restOfName: string[]) {
-	return firstName + " " + restOfName.join(" ");
+    return firstName + " " + restOfName.join(" ");
 }
 
 var employeeName = buildName("Joseph", "Samuel", "Lucas", "MacKinzie");
@@ -189,7 +189,7 @@ The ellipsis is also used in the type of the function with rest parameters:
 
 ```TypeScript
 function buildName(firstName: string, ...restOfName: string[]) {
-	return firstName + " " + restOfName.join(" ");
+    return firstName + " " + restOfName.join(" ");
 }
 
 var buildNameFun: (fname: string, ...rest: string[]) => string = buildName;
@@ -204,7 +204,7 @@ A whole article could be written on how to use `this` in JavaScript, and many ha
 
 In JavaScript, `this` is a variable that's set when a function is called.
 This makes it a very powerful and flexible feature, but it comes at the cost of always having to know about the context that a function is executing in.
-This can be notoriously confusing, when, for example, when a function is used as a callback.
+This can be notoriously confusing when, for instance, a function is used as a callback.
 
 Let's look at an example:
 
@@ -216,7 +216,7 @@ var deck = {
         return function() {
             var pickedCard = Math.floor(Math.random() * 52);
             var pickedSuit = Math.floor(pickedCard / 13);
-			
+
             return {suit: this.suits[pickedSuit], card: pickedCard % 13};
         }
     }
@@ -235,7 +235,7 @@ This happens as a result of calling `cardPicker()`. Here, there is no dynamic bi
 We can fix this by making sure the function is bound to the correct `this` before we return the function to be used later.
 This way, regardless of how its later used, it will still be able to see the original `deck` object.
 
-To fix this, we switching the function expression to use the lambda syntax ( () => {} ) rather than the JavaScript function expression.
+To fix this, we switch the function expression to use the arrow syntax (`() => {}`) rather than the JavaScript function expression.
 This will automatically capture the `this` available when the function is created rather than when it is invoked:
 
 ```TypeScript
@@ -247,7 +247,7 @@ var deck = {
         return () => {
             var pickedCard = Math.floor(Math.random() * 52);
             var pickedSuit = Math.floor(pickedCard / 13);
-			
+
             return {suit: this.suits[pickedSuit], card: pickedCard % 13};
         }
     }
@@ -294,7 +294,7 @@ alert("card: " + pickedCard2.card + " of " + pickedCard2.suit);
 Here the `pickCard` function will return two different things based on what the user has passed in.
 If the users passes in an object that represents the deck, the function will pick the card.
 If the user picks the card, we tell them which card they've picked.
-But how do we describe this to the type system.
+But how do we describe this to the type system?
 
 The answer is to supply multiple function types for the same function as a list of overloads.
 This list is what the compiler will use to resolve function calls.
