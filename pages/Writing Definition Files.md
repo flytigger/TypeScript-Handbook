@@ -31,20 +31,20 @@ You might have a choice of declaring a variable using an anonymous type or an in
 
 #### Anonymously-typed var
 
-```TypeScript
+```ts
 declare var MyPoint: { x: number; y: number; };
 ```
 
 #### Interfaced-typed var
 
-```TypeScript
+```ts
 interface SomePoint { x: number; y: number; }
 declare var MyPoint: SomePoint;
 ```
 
 From a consumption side these declarations are identical, but the type `SomePoint` can be extended through interface merging:
 
-```TypeScript
+```ts
 interface SomePoint { z: number; }
 MyPoint.z = 4; // OK
 ```
@@ -63,7 +63,7 @@ As an example, the following two declarations are nearly equivalent from a consu
 
 #### Standard
 
-```TypeScript
+```ts
 class A {
     static st: string;
     inst: number;
@@ -73,7 +73,7 @@ class A {
 
 #### Decomposed
 
-```TypeScript
+```ts
 interface A_Static {
     new(m: any): A_Instance;
     st: string;
@@ -93,7 +93,7 @@ The trade-offs here are as follows:
 
 ## Naming Conventions
 
-In general, do not prefix interfaces with `I` (e.g. `IColor`).
+In general, you shouldn't prefix interfaces with `I` (e.g. `IColor`).
 Because the concept of an interface in TypeScript is much more broad than in C# or Java, the `IFoo` naming convention is not broadly useful.
 
 # Examples
@@ -105,7 +105,7 @@ When there are multiple good representations, more than one definition sample mi
 
 #### Usage
 
-```TypeScript
+```ts
 animalFactory.create("dog");
 animalFactory.create("giraffe", { name: "ronald" });
 animalFactory.create("panda", { name: "bob", height: 400 });
@@ -115,7 +115,7 @@ animalFactory.create("cat", { height: 32 });
 
 #### Typing
 
-```TypeScript
+```ts
 namespace animalFactory {
     interface AnimalOptions {
         name: string;
@@ -130,14 +130,14 @@ namespace animalFactory {
 
 #### Usage
 
-```TypeScript
+```ts
 zooKeeper.workSchedule = "morning";
 zooKeeper(giraffeCage);
 ```
 
 #### Typing
 
-```TypeScript
+```ts
 // Note: Function must precede namespace
 function zooKeeper(cage: AnimalCage);
 namespace zooKeeper {
@@ -149,7 +149,7 @@ namespace zooKeeper {
 
 #### Usage
 
-```TypeScript
+```ts
 var w = widget(32, 16);
 var y = new widget("sprocket");
 // w and y are both widgets
@@ -159,7 +159,7 @@ y.sprock();
 
 #### Typing
 
-```TypeScript
+```ts
 interface Widget {
     sprock(): void;
 }
@@ -176,7 +176,7 @@ declare var widget: WidgetFactory;
 
 #### Usage
 
-```TypeScript
+```ts
 // Either
 import x = require('zoo');
 x.open();
@@ -186,8 +186,8 @@ zoo.open();
 
 #### Typing
 
-```TypeScript
-namespace zoo {
+```ts
+declare namespace zoo {
   function open(): void;
 }
 
@@ -200,44 +200,67 @@ declare module "zoo" {
 
 #### Usage
 
-```TypeScript
+```ts
 // Super-chainable library for eagles
-import eagle = require('./eagle');
+import Eagle = require('./eagle');
+
 // Call directly
-eagle('bald').fly();
+Eagle('bald').fly();
+
 // Invoke with new
-var eddie = new eagle(1000);
+var eddie = new Eagle('Mille');
+
 // Set properties
-eagle.favorite = 'golden';
+eddie.kind = 'golden';
 ```
 
 #### Typing
 
-```TypeScript
-// Note: can use any name here, but has to be the same throughout this file
-declare function eagle(name: string): eagle;
-declare namespace eagle {
-    var favorite: string;
-    function fly(): void;
-}
-interface eagle {
-    new(awesomeness: number): eagle;
+```ts
+interface Eagle {
+    (kind: string): Eagle;
+    new (kind: string): Eagle;
+
+    kind: string;
+    fly(): void
 }
 
-export = eagle;
+declare var Eagle: Eagle;
+
+export = Eagle;
+```
+
+## Function as an Module
+
+This is a common pattern for modules whose imported entities are callable functions.
+
+#### Usage
+
+```ts
+import sayHello = require("say-hello");
+sayHello("Travis");
+```
+
+#### Typing
+
+```ts
+declare module "say-hello" {
+    function sayHello(name: string): void;
+    export = sayHello;
+}
 ```
 
 ## Callbacks
 
 #### Usage
 
-```TypeScript
+```ts
 addLater(3, 4, x => console.log('x = ' + x));
 ```
 
 #### Typing
 
-```TypeScript
+```ts
 // Note: 'void' return type is preferred here
 function addLater(x: number, y: number, (sum: number) => void): void;
 ```
